@@ -58,6 +58,7 @@ export default {
 
       this.messageError = dataLogin.message
       this.token = dataLogin.token
+      localStorage.setItem("userToken", this.token)
       console.log(this.token)
     }
   }

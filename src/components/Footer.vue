@@ -13,9 +13,7 @@ export default {
 <style>
 .footer{
     background: red;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+
 }
 
 </style>

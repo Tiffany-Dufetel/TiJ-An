@@ -35,7 +35,7 @@ export default {
 
     const response = await fetch (url)
     const dataPosts = await response.json()
-    console.log(dataPosts)
+    console.log("POST",dataPosts)
   }
 }
 </script>
