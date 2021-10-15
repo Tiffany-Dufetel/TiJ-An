@@ -16,7 +16,10 @@
             :dateArticle="element.date"
             :titleArticle="element.title"
             :contentArticle="element.content"
-        /> ncoucou
+            :postId="element._id"
+            :comments="element.comments"
+        />
+
     </div>
     <!-- <Footer/> -->
 </template>
@@ -60,8 +63,14 @@ export default {
             const response = await fetch (url, options)
             const dataPosts = await response.json()
             console.log("dataPosts",dataPosts)
+
+            this.content =""
+            this.title=""
         },
+
+        
     },
+
     async mounted(){
         const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
 

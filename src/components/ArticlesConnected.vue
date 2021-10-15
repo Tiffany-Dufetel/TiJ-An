@@ -13,12 +13,14 @@
   </div>
 </div>
 <div class="container-editcomment">
-    <input v-model="postId"><br/>
     <textarea placeholder="Ecrivez votre commentaire" v-model="textareaCom"></textarea><br/>
     <button @click="sendCom">ENVOYER</button>
 </div>
 <div class="container-commentaires">
-    <p>fezfezfz</p>
+    <p v-for="(element,index) in comments" :key="index">
+        {{element.content}}<br/>
+        posté par {{element.firstname}} {{element.lastname}}
+    </p>
 </div>
 
 </template>
@@ -32,11 +34,15 @@ export default {
     dateArticle: String,
     titleArticle: String,
     contentArticle: String,
+    postId: String,
+    comments: Array,
   },
+
   data(){
     return{
-        postId: "",
         textareaCom: "",
+        arrayPosts: [],
+        arrayComments: [],
     }
   },
 
@@ -49,7 +55,7 @@ export default {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer" + usertoken,
+                "Authorization": "Bearer " + usertoken
             },
             body: JSON.stringify({
                 postId: this.postId,
@@ -59,7 +65,9 @@ export default {
 
         const response = await fetch (url,options)
         const data = await response.json()
-        console.log(data)
+        console.log("datacomm",data)
+
+        this.textareaCom =""
     },
   }
 }
