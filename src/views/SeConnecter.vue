@@ -1,21 +1,24 @@
 <template>
 <Navbar
   buttonName="SE CONNECTER / S'INSCRIRE"/>
+  <div class="container-connexion">
+    <div class="connexion">
+      <label for="id">IDENTIFIANT</label><br/>
+      <input type="email" v-model="email" name="id" class="input-text"/><br/>
 
-  <div class="container">
-    <label for="id">Identifiant</label>
-    <input type="email" v-model="email" placeholder="Votre adresse mail" name="id"/><br/>
+      <label for="password">MOT DE PASSE</label><br/>
+      <input type="password" v-model="password" name="password" class="input-text"/><br />
+      
+      <div class="rememberme-container">
+        <div class="checkbox"><input type="checkbox" id="checkbox"></div><br />
+        <div class="rememberme-text"><p>SE SOUVENIR DE MOI</p></div>
+      </div>
+      <p class="error-message">{{messageError}}</p>
+      <router-link to="/seconnecter"><button @click="btnConnexion">CONNEXION</button></router-link><br/>
+          
 
-    <label for="password">Mot de passe</label>
-    <input type="password" v-model="password" placeholder="Votre mot de pass" name="password"/><br />
-    
-    <p>Se souvenir de moi</p>
-    <input type="checkbox" id="checkbox"><br />
-    
-    <button @click="btnConnexion">Connexion</button>
-        {{messageError}}
-
-    <router-link to="/formulaire-inscription">Je n'ai pas de compte, je souhaite m'insrire</router-link>
+      <router-link to="/formulaire-inscription"><p class="register-text">Je n'ai pas de compte / S'inscrire</p></router-link>
+    </div>
   </div>
 
 <Footer/>
@@ -32,6 +35,7 @@ export default {
       password: "",
       messageError: "",
       token: "",
+      status:"",
     }
   },
 
@@ -56,16 +60,97 @@ export default {
       const response = await fetch (url, options)
       const dataLogin = await response.json()
 
+      console.log("data AAH",dataLogin)
+
       this.messageError = dataLogin.message
       this.token = dataLogin.token
       localStorage.setItem("userToken", this.token)
       console.log(this.token)
-    }
+      this.status = dataLogin.success
+      localStorage.setItem("successStatuts", this.status )
+
+      if (this.status == true) {
+      this.$router.push({ name: "HomeConnected" });
+          return;}
+      // const successStatus = dataLogin.success
+      // console.log("success",successStatus)
+      
+      // if(successStatus == true){
+      //   alert("coucou")
+      // } else {
+      //   alert("salut")
+      // }
+    },
+
   }
   
 }
 </script>
 
-<style>
+<style scoped>
+.container-connexion{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: 15% auto 100px auto;
+    height: 100%;
+    width: 500px;
+    box-shadow: 4px 8px 16px 10px rgba(175,175,175,0.75);
+    padding: 50px;
+    color: #405e63;
 
+}
+.input-text{
+  padding: 5px;
+  width: 480px;
+  height: 30px;
+  border: none;
+  margin: 10px 0;
+  outline: none;
+}
+label{
+  margin-left: 10px;
+}
+
+.rememberme-container{
+  display: flex;
+}
+.rememberme-text p{
+  margin:0;
+  padding-left: 15px;
+  color:white;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+.connexion button{
+  display: block;
+  margin: 20px auto 0 auto;
+  margin-right: auto;
+  margin-left: auto;
+  pointer-events: auto;
+  background-color: white;
+  border: none;
+  color: 405e63;
+  padding: 5px 80px;
+  color: #405e63;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+}
+
+a{
+  text-decoration: none;
+}
+.register-text{
+  text-align: center;
+  color: #405e63;
+  margin-top: -15px;
+  font-size: 14px;
+}
+.error-message{
+  text-align: center;
+  font-size: 12px;
+  color: red;
+}
 </style>

@@ -8,20 +8,29 @@
         <button @click="btnSend">ENVOYER</button>
     </div>
     <div class="article">
-        <p v-for="(elements, index) in arrayPosts"
-            :key="index">{{elements}}</p>
+        <ArticlesConnected
+            v-for="(element,index) in arrayPosts"
+            :key="index"
+            :nomArticle="element.lastname"
+            :prenomArticle="element.firstname"
+            :dateArticle="element.date"
+            :titleArticle="element.title"
+            :contentArticle="element.content"
+        /> ncoucou
     </div>
-    <Footer/>
+    <!-- <Footer/> -->
 </template>
 
 <script>
-import Footer from "../components/Footer.vue"
+import ArticlesConnected from "../components/ArticlesConnected.vue"
+// import Footer from "../components/Footer.vue"
 import NavbarConnected from "../components/NavbarConnected.vue"
 
 export default {
     components:{
-        "Footer": Footer,
+        // "Footer": Footer,
         "NavbarConnected": NavbarConnected,
+        "ArticlesConnected": ArticlesConnected,
     },
     data(){
         return{
@@ -40,7 +49,7 @@ export default {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTY3MzM3MDJmMTlmOTAwMWJjMmJmMjgiLCJpYXQiOjE2MzQyMDE5MzMsImV4cCI6MTYzNDI4ODMzM30.gxS10r4GDTFRl3_56Vi0-R1j2lDLaJBjbATE3z0-2X4"
+                    "Authorization": "bearer " + usertoken
                 },
                 body: JSON.stringify({
                     title: this.title,
@@ -51,16 +60,19 @@ export default {
             const response = await fetch (url, options)
             const dataPosts = await response.json()
             console.log("dataPosts",dataPosts)
+        },
+    },
+    async mounted(){
+        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
 
-            
-            // this.arrayPosts.unshift(this.title, this.content)
-            // console.log("tableau",this.arrayPosts)
-            // localStorage.setItem("arraypost",JSON.stringify(this.arrayPosts))
-            // let storedPosts = JSON.parse(localStorage.getItem("arraypost"))
-            // console.log(storedPosts)
+        const response = await fetch (url)
+        const dataPosts = await response.json()
+        console.log("POST",dataPosts)
+        this.arrayPosts = dataPosts.posts
 
-        }
+        console.log("coucou",this.arrayPosts)
     }
+    
 }
 </script>
 

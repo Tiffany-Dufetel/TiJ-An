@@ -1,16 +1,10 @@
 <template>
 <div class="container">
   <div class="container-article">
-    <p>NOM Prénom</p>
-    <p> date-heure </p>
-    <p>Titre voyage</p>
-    <p>Nam aliquam maximus vehicula. In ut placerat arcu. In orci turpis, varius vel augue non, 
-      aliquam feugiat augue. In eget arcu ornare, pharetra lorem nec, pellentesque eros. Nunc ut 
-      porta augue. Suspendisse a ligula metus. Fusce in vehicula nibh. Aliquam posuere sagittis 
-      erat et bibendum. Proin rutrum lectus sit amet fringilla venenatis. Vivamus suscipit, 
-      tellus ac rutrum tincidunt, augue turpis varius risus, eu porta enim felis vel mauris. Nunc
-      eu pulvinar massa, et dignissim arcu. Etiam egestas nunc ut lacinia aliquam. Mauris eu urna 
-      semper, molestie dolor sit amet, fermentum nunc.</p>
+    <p>{{nomArticle}} {{prenomArticle}}</p>
+    <p>{{dateArticle}}</p>
+    <p>{{titleArticle}}</p>
+    <p>{{contentArticle}}</p>
   </div>
   <div class="container-photos" style="overflow-y: scroll; height:400px;">
     <img src="../assets/a.jpg"/><br/>
@@ -24,19 +18,18 @@
 <script>
 
 export default {
-
+  props:{
+    nomArticle: String,
+    prenomArticle: String,
+    dateArticle: String,
+    titleArticle: String,
+    contentArticle: String,
+  },
   data(){
   return{
     arrayPosts: [],
   }
   },
-  async mounted(){
-    const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
-
-    const response = await fetch (url)
-    const dataPosts = await response.json()
-    console.log("POST",dataPosts)
-  }
 }
 </script>
 <style scoped>

@@ -1,8 +1,15 @@
 <template>
-    <div id="nav">
-        <button>MON PROFIL</button>
-        <button>EDIT</button>
-        <router-link to="/sedeconnecter">
+    <div id="nav">        
+        <router-link to="/connected">
+            <button>HOME</button>
+        </router-link>
+        <router-link to="/profile">
+            <button>MON PROFIL</button>
+        </router-link>
+        <router-link to="/edit-profile">
+            <button>EDIT</button>
+        </router-link>
+        <router-link to="/seconnecter">
             <button>{{buttonName}}</button>
         </router-link>
     </div>
@@ -16,12 +23,6 @@ export default {
 }
 </script>
 
-<style>
-#nav{
-    background-color: red;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 40px;
-}
+<style scoped>
+
 </style>
