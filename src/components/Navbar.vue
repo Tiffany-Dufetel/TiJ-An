@@ -1,12 +1,16 @@
 <template>
     <div id="nav">
         <img src="../assets/logo.png"/>
-        <router-link to="/">
-        <button>HOME</button>
-        </router-link>
-        <router-link to="/seconnecter">
-            <button>{{buttonName}}</button>
-        </router-link>
+        <div class="btn-home">
+            <router-link to="/">
+                <button>HOME</button>
+            </router-link>
+        </div>
+        <div class="btn-co">
+            <router-link to="/seconnecter">
+                <button>{{buttonName}}</button>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -20,6 +24,8 @@ export default {
 
 <style>
 #nav{
+    display: flex;
+    justify-content: right;
     background-image: url("../assets/bg-navbar.jpg");
     background-size: cover;
     position: fixed;
@@ -41,7 +47,6 @@ export default {
 
 #nav button{
     margin-top: 30px;
-    pointer-events: auto;
     margin-right: 100px;
     float: right;
     right: 0px;

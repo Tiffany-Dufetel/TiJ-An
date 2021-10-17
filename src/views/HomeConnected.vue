@@ -1,12 +1,7 @@
 <template>
     <NavbarConnected
         buttonName="SE DECONNECTER"/>
-    <div class="container">
-
-        <input type="text" name="title" id="title" placeholder="Votre titre ici..." v-model="title"><br/>
-        <textarea name="description" id="description" v-model="content"></textarea><br/>
-        <button @click="btnSend">ENVOYER</button>
-    </div>
+    <CreatePost/>
     <div class="article">
         <ArticlesConnected
             v-for="(element,index) in arrayPosts"
@@ -21,55 +16,28 @@
         />
 
     </div>
-    <!-- <Footer/> -->
+    <Footer/>
 </template>
 
 <script>
 import ArticlesConnected from "../components/ArticlesConnected.vue"
-// import Footer from "../components/Footer.vue"
+import Footer from "../components/Footer.vue"
 import NavbarConnected from "../components/NavbarConnected.vue"
+import CreatePost from "../components/CreatePost.vue"
 
 export default {
     components:{
-        // "Footer": Footer,
+        "Footer": Footer,
         "NavbarConnected": NavbarConnected,
         "ArticlesConnected": ArticlesConnected,
+        "CreatePost": CreatePost,
     },
     data(){
         return{
-            title: "",
-            content: "",
             arrayPosts: [],
         }
     },
-    methods: {
-        async btnSend(){
-            const usertoken = localStorage.getItem("userToken")
-            console.log("LS TOKEN",usertoken)
 
-            const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/post"
-            const options= {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "bearer " + usertoken
-                },
-                body: JSON.stringify({
-                    title: this.title,
-                    content: this.content,
-                })
-            }
-
-            const response = await fetch (url, options)
-            const dataPosts = await response.json()
-            console.log("dataPosts",dataPosts)
-
-            this.content =""
-            this.title=""
-        },
-
-        
-    },
 
     async mounted(){
         const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"

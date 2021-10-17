@@ -10,7 +10,5 @@ body{
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
 }
-.container{
-  margin-top: 150px;
-}
+
 </style>

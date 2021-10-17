@@ -1,6 +1,9 @@
 <template>
     <Navbar
       buttonName="SE CONNECTER / S'INSCRIRE"/>
+      <div class="banner">
+        <img src="../assets/banner.jpg">
+      </div>
     <Articles
         v-for="(element,index) in arrayPosts"
         :key="index"
@@ -43,3 +46,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.banner img{
+  width: 60%;
+}
+.banner{
+  display:flex;
+  justify-content: center;
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto
+}
+</style>

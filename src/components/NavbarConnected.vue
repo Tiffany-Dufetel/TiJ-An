@@ -1,5 +1,6 @@
 <template>
-    <div id="nav">        
+    <div id="nav">
+        <img src="../assets/logo.png"/>        
         <router-link to="/connected">
             <button>HOME</button>
         </router-link>

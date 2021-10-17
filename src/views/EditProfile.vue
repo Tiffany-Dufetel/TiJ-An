@@ -26,11 +26,11 @@
 
       </div>
 
-        <label for="email" class="uppercase">adresse email* </label><br />
+        <label for="email">ADRESSE MAIL* </label><br />
         <input
           type="email"
-          v-model="email"
           id="email"
+          v-model="email"
           required
         /><br />
 
@@ -122,78 +122,65 @@ export default {
         "NavbarConnected": NavbarConnected,
         "Footer": Footer,
     },
-    data() {
-        return {
-        nom: "",
-        prenom: "",
-        email: "",
-        pseudo: "",
-        password: "",
-        date: "",
-        gender: "",
-        description: "",
-        visitedCountry: "",
-        travellerTypeValue: "",
-        listArray: [],
-        };
-    },
+  data() {
+    return {
+      nom: "",
+      prenom: "",
+      pseudo: "",
+      password: "",
+      email:"",
+      date: "",
+      gender: "",
+      description: "",
+      visitedCountry: "",
+      travellerTypeValue: "",
+    };
+  },
 
-//   async mounted() {
-//     const options = {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         nom: String,
-//         prenom: String,
-//         email: String,
-//         pseudo: String,
-//         password: String,
-//         date: String,
-//         gender: String,
-//       }),
-//     };
-//     const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/register";
-//     const response = await fetch(url, options);
-//     console.log(response);
+  async mounted(){
+      const usertoken = localStorage.getItem("userToken")
+      console.log(usertoken)
 
-//     const data = await response.json();
-
-//     console.log(data);
-//   },
-
-  methods: {
-    async updateClick() {
-      const options = {
-        method: "POST",
+      const options= {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Authorization" : "Bearer " + usertoken
+        }
+      }
+
+      const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
+      const response = await fetch (url,options)
+      var data = await response.json()
+      console.log("oulah",data)
+      this.prenom = data.firstname
+      this.nom = data.lastname
+      this.email = data.email
+  },
+
+  methods:{
+    async updateClick(){
+      const usertoken = localStorage.getItem("userToken")
+      const options={
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : "Bearer " + usertoken
         },
         body: JSON.stringify({
-          nom: String,
-          prenom: String,
-          email: String,
-          pseudo: String,
-          password: String,
-          date: String,
-          gender: String,
-          description: String,
-          visitedCountry: String,
-          travellerTypeValue: String,
-        }),
-      };
+          firstname: this.prenom,
+          lastname: this.nom,
+          email: this.email,
+          })
+      }
 
-      const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user";
-      const response = await fetch(url, options);
+      const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
+      const response= await fetch (url,options)
+      const data= await response.json()
+      console.log("update", data)
 
-      console.log(response);
-
-      const data = await response.json();
-
-      console.log(data);
-    },
-  },
+    }
+  }
 };
 </script>
 

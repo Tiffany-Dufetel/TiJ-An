@@ -100,6 +100,7 @@ export default {
     box-shadow: 4px 8px 16px 10px rgba(175,175,175,0.75);
     padding: 50px;
     color: #405e63;
+    font-weight: 400;
 
 }
 .input-text{
@@ -136,7 +137,7 @@ label{
   padding: 5px 80px;
   color: #405e63;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 a{
