@@ -18,6 +18,7 @@
         <p>{{contentArticle}}</p>
       </div>
     </div>
+     <LikeCounter :initialLikeNumber="likes.length" :postId="postId" />
   </div>
   <div class="container-photos" style="overflow-y: scroll; height:400px; width:250px">
     <img src="../assets/a.jpg"/><br/>
@@ -25,6 +26,7 @@
     <img src="../assets/abc.jpg">
   </div>
 </div>
+
 
 <div class="container-editcomment">
   <div class="comment">
@@ -35,7 +37,7 @@
   </div>
 </div>
 <div class="commentaires">
-  <p class="comm-here">Vos commentaires juste ici:{{abc}}</p>
+  <p class="comm-here">Vos commentaires juste ici:</p>
     <div 
       class="container-commentaires" 
       v-for="(element,index) in comments" 
@@ -57,8 +59,12 @@
 </template>
 
 <script>
+import LikeCounter from "../components/LikeCounter.vue";
 
 export default {
+  components: {
+    LikeCounter: LikeCounter,
+  },
   props:{
     nomArticle: String,
     prenomArticle: String,
@@ -67,7 +73,7 @@ export default {
     contentArticle: String,
     postId: String,
     comments: Array,
-    abc: String,
+    likes: Array,
   },
 
   data(){
@@ -80,6 +86,8 @@ export default {
 
   methods:{
       async sendCom(){
+        window.location.reload();
+
         const usertoken = localStorage.getItem("userToken")
 
         const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/post/comment"
@@ -121,9 +129,10 @@ hr{
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top:1px;
 }
 .comment{
-  margin-top: 20px;
+  margin-top: 2px;
   display: flex;
   justify-content: center;
   background-color: white;

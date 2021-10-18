@@ -24,6 +24,8 @@ export default {
   },
   methods: {
     async btnSend(){
+      window.location.reload();
+
       const usertoken = localStorage.getItem("userToken")
       console.log("LS TOKEN",usertoken)
 
@@ -66,16 +68,25 @@ export default {
   margin-right: auto;
 }
 .container-create-input{
-  margin-top: 190px;
+  margin-top: 210px;
+  display: flex;
+  justify-content: center;
+} 
+
+.input{
+  width: 100%;
   display: flex;
   justify-content: center;
 }
-.container-create-input input{
-  border:none;
+
+.input input{
+  width: 50%;
   height: 30px;
-  width: 900px;
   padding-left: 20px;
+  border:none;
   outline: none;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 .container-btn button{ 
@@ -104,9 +115,10 @@ export default {
   color: #405e63;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
+  padding: 5px 20px;
 }
 textarea#description{
-  width: 100%;
+  width: 95%;
 }
 
 </style>

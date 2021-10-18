@@ -13,6 +13,7 @@
             :contentArticle="element.content"
             :postId="element._id"
             :comments="element.comments"
+            :likes="element.likes"
         />
 
     </div>

@@ -1,18 +1,31 @@
 <template>
     <div id="nav">
-        <img src="../assets/logo.png"/>        
-        <router-link to="/connected">
-            <button>HOME</button>
-        </router-link>
-        <router-link to="/profile">
-            <button>MON PROFIL</button>
-        </router-link>
-        <router-link to="/edit-profile">
-            <button>EDIT</button>
-        </router-link>
-        <router-link to="/seconnecter">
-            <button>{{buttonName}}</button>
-        </router-link>
+        <img src="../assets/logo.png"/>
+            <div class="boutons">
+                <div class="btn-home">
+                    <router-link to="/connected">
+                        HOME
+                    </router-link>
+                </div>
+                
+                <div class="btn-profile">
+                    <router-link to="/profile">
+                        MON PROFIL
+                    </router-link>
+                </div>
+
+                <div class="btn-edit">
+                    <router-link to="/edit-profile">
+                        EDIT
+                    </router-link>
+                </div>
+                    
+                <div class="btn-co">
+                    <router-link to="/seconnecter">
+                        {{buttonName}}
+                    </router-link>
+                </div>
+            </div>
     </div>
 </template>
 
