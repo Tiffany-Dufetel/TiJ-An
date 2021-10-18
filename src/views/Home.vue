@@ -54,8 +54,8 @@ export default {
 .banner{
   display:flex;
   justify-content: center;
-  margin-top: 120px;
   margin-left: auto;
   margin-right: auto
 }
+
 </style>

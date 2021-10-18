@@ -5,6 +5,8 @@
       class="likeButton"
       alt="like"
       @click="likeCounter"
+      :class="likeButton ? 'likeClick' : 'notClick'"
+      v-on:click="clicked = 1"
     />
     <p>{{ LikeNumber }} likes</p>
   </div>
@@ -20,16 +22,15 @@ export default {
   data: function () {
     return {
       LikeNumber: this.initialLikeNumber,
-
+      clicked: false,
     };
   },
 
-  // computed: {
-  //   changeLike(){
-  //     if (){
-  //       return "likeButton"
-  //   }
-  // },
+  computed: {
+    likeButton() {
+      return this.LikeNumber > "0";
+    },
+  },
 
   methods: {
     async likeCounter() {
@@ -40,7 +41,7 @@ export default {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + usertoken,
+          Authorization: "Bearer " + usertoken,
         },
 
         body: JSON.stringify({
@@ -76,5 +77,13 @@ export default {
 .likeCounter {
   display: flex;
   flex-direction: row;
+}
+
+.likeClick {
+  background-color: red;
+}
+
+.notClick {
+  background-color: white;
 }
 </style>

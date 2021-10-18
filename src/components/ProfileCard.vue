@@ -1,67 +1,93 @@
 <template>
   <div class="profileCard">
     <div class="profilePicture">
-      <img
-        src="https://www.joomeo.com/wp-content/uploads/2020/09/Joomeo-Photo-by-Max-Panama-TWTR.jpg"
-        alt=""
-      />
+      <img src="../assets/pic-profile.jpg"/>
     </div>
 
     <div class="profileContent">
       <div class="pseudo-travellerType">
-        <h2 class="affichagePseudo">MyWorld75{{ pseudo }}</h2>
-        <p class="affichageTravellerTypeValue">{{ travellerTypeValue }}</p>
+        <h2 class="affichagePseudo">{{prenom}} {{nom.toUpperCase()}}</h2>
+        <p class="affichageTravellerTypeValue"></p>
       </div>
+      <p class="description">
+        Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam ex sem, convallis 
+        id erat in, dapibus ullamcorper orci. Mauris ac scelerisque est, non laoreet nulla. 
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+        Maecenas tempus tellus in mollis porttitor. Duis vitae arcu justo. Phasellus rutrum 
+        magna non neque dapibus ullamcorper. Nam vitae ex et metus sollicitudin volutpat at 
+        nec odio. Morbi ante libero, facilisis eget laoreet cursus, egestas pharetra elit.
+      </p>
 
       <p class="affichageVisitedCountry">
-        pays visité(s) : Croatie, Inde, UK, USA{{ visitedCountry }}
-      </p>
-      <p class="affichageDescription">
-        J'adore voyager! Suivez-moi, et voyagez avec moi!{{ description }}
+        PAYS VISITE(S): Croatie, Inde, UK, USA<br/>
+        TYPE DE VOYAGEUR: Backpacker
       </p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return{
+      prenom: "",
+      nom: ""
+    }
+  },
+  async mounted(){
+      const usertoken = localStorage.getItem("userToken")
+      console.log(usertoken)
+
+      const options= {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : "Bearer " + usertoken
+        }
+      }
+
+      const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
+      const response = await fetch (url,options)
+      var data = await response.json()
+      console.log("oulah",data)
+      this.prenom = data.firstname
+      this.nom = data.lastname
+  },
+};
 </script>
 
-<style>
-.profileCard {
+<style scoped>
+.profileCard{
+  font-weight: 400 ;  
   display: flex;
-  flex-direction: row;
+  width: 80%;
+  padding: 20px 40px;
+  background-color: white;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profilePicture img{
+  border-radius: 50%;
+  display: flex;
+}
+
+.profilePicture{
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  box-shadow: 2px 2px 7px #656565;
-  margin: 0;
-  padding: 10px;
 }
 
-.profileContent {
+.profileContent{
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  margin-left: 50px;
+  justify-content: center;
 }
 
-.profilePicture img {
-  border-top-left-radius: 150px;
-  border-top-right-radius: 150px;
-  border-bottom-left-radius: 150px;
-  border-bottom-right-radius: 150px;
-  width: 200px;
-  height: 200px;
-}
-
-.profilePicture {
-  width: 250px;
-}
-
-.pseudo-travellerType {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.affichagePseudo{
+  color: #415e64;
+  margin-left: 40px;
 }
 </style>

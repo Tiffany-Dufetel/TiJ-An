@@ -1,4 +1,5 @@
 <template>
+  <div class="vide"></div>
     <router-link to="/"></router-link>
   <router-view />
 </template>
@@ -10,5 +11,9 @@ body{
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
 }
-
+.vide{
+  background-color: #cad2c5;
+  height: 170px;
+}
 </style>
+

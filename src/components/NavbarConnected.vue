@@ -22,7 +22,7 @@
                     
                 <div class="btn-co">
                     <router-link to="/seconnecter">
-                        {{buttonName}}
+                        <span @click="clearLs">{{buttonName}}</span>
                     </router-link>
                 </div>
             </div>
@@ -33,6 +33,11 @@
 export default {
     props: {
         buttonName : String,
+    },
+    methods:{
+        clearLs(){
+            localStorage.removeItem("userToken")
+        }
     }
 }
 </script>

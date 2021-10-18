@@ -3,10 +3,10 @@
   <div class="container-article">
     <div class="container-entete">
       <div class="photo-profile">
-        <img src="../assets/pic-profile.jpg">
+        <router-link to="/profileinfo"><a @click="getUser"><img src="../assets/pic-profile.jpg"></a></router-link>
       </div>
       <div class="container-id">
-        <p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
+        <p class="identite">{{test}}{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
         <p class="date">{{dateArticle}}</p>
       </div>
     </div>
@@ -14,7 +14,7 @@
       <div class="container-titre">
         <p>{{titleArticle}}</p>
       </div>
-      <div class="container-content">
+      <div class="container-content" style="overflow-y: scroll; height:250px;">
         <p>{{contentArticle}}</p>
       </div>
     </div>
@@ -74,13 +74,16 @@ export default {
     postId: String,
     comments: Array,
     likes: Array,
+    userId: String,
   },
 
   data(){
     return{
+        id:"",
         textareaCom: "",
         arrayPosts: [],
         arrayComments: [],
+        test: "",
     }
   },
 
@@ -108,7 +111,26 @@ export default {
         console.log("datacomm",data)
 
         this.textareaCom =""
-    },
+      },
+      async getUser(){
+        const token = localStorage.getItem("userToken")
+        console.log(token)
+        
+        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user/" + this.userId
+        const options = {
+          method: "GET",
+          headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token,
+          },
+          parameters: { 
+            id: this.userId,
+          }
+        }
+        const response = await fetch (url,options)
+        const data = await response.json()
+        console.log("datauser",data)
+      }
   }
 }
 </script>

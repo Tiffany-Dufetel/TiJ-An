@@ -4,7 +4,8 @@ import SeConnecter from "../views/SeConnecter.vue";
 import FormInscription from "../views/FormInscription.vue";
 import HomeConnected from "../views/HomeConnected.vue";
 import EditProfile from "../views/EditProfile.vue";
-import Profile from "../views/Profile.vue"
+import Profile from "../views/Profile.vue";
+import ProfileInfo from "../views/ProfileInfo.vue"
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+  },
+  {
+    path: "/profileInfo",
+    name: "profileInfo",
+    component: ProfileInfo,
   },
 ];
 

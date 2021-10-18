@@ -61,6 +61,8 @@ export default {
   display: flex;
   justify-content: center;
   padding: 0;
+  width: 80%;
+  padding: 15px 40px
   
 }
 .container-create{
@@ -68,7 +70,7 @@ export default {
   margin-right: auto;
 }
 .container-create-input{
-  margin-top: 210px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
 } 
@@ -112,13 +114,11 @@ export default {
   border: none;
   outline: none;
   color: #405e63;
-  color: #405e63;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  padding: 5px 20px;
 }
 textarea#description{
-  width: 95%;
+  width: 98%;
 }
 
 </style>

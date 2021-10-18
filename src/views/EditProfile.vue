@@ -1,7 +1,8 @@
 <template>
+<div v-if="token">
 <NavbarConnected
     buttonName="SE DECONNECTER"/>
-  <div class="container">
+  <div class="container-edit">
     <form action="" class="editProfil">
       <div class="container-nomprenom">
         <div class="container-prenom">
@@ -42,16 +43,18 @@
           required
         /><br />
 
-        <label for="password">
-            <span class="uppercase">mot de passe*</span> (doit contenir 8
-          caractères minimum) :
-        </label><br />
-          <input type="password"
-          v-model="password"
-          id="password"
-          minlength="8"
-          required
-        /><br />
+      <label for="password">
+        <span class="uppercase">mot de passe*</span> (doit contenir 8 caractères
+        minimum) : </label
+      ><br />
+      <input
+        id="password"
+        type="password"
+        v-model="password"
+        :class="passwordValidity ? `validforPassword` : `notValidforPassword`"
+        required
+      /><br />
+
 
         <label for="date" class="uppercase">date de naissance* </label><br />
         <input type="date" v-model="date" id="date" required /><br />
@@ -103,27 +106,32 @@
           Actualiser
       </button>
 
-      <!-- >
-        <router-link class="no-deco" to="/">
-           <p> Supprimer mon profil </p>
-        </router-link>
-       -->
     </form>
   </div>
+</div>
+    <div v-else>
+        <Navbar
+            buttonName="SE CONNECTER"/>
+        <p class="message-erreur">OH OH... VOUS DEVEZ ÊTRE CONNECTE POUR ACCEDER A CETTE PAGE</p>
+    </div>
   <Footer/>
 </template>
 
 <script>
 import NavbarConnected from "../components/NavbarConnected.vue"
 import Footer from "../components/Footer.vue"
+import Navbar from "../components/Navbar.vue"
 
 export default {
     components:{
         "NavbarConnected": NavbarConnected,
         "Footer": Footer,
+        "Navbar": Navbar,
     },
+    
   data() {
     return {
+      token: true,
       nom: "",
       prenom: "",
       pseudo: "",
@@ -135,6 +143,11 @@ export default {
       visitedCountry: "",
       travellerTypeValue: "",
     };
+  },
+  computed: {
+    passwordValidity() {
+      return this.password.length >= 8 && this.password.length <= 16;
+    },
   },
 
   async mounted(){
@@ -155,7 +168,10 @@ export default {
       console.log("oulah",data)
       this.prenom = data.firstname
       this.nom = data.lastname
-      this.email = data.email
+      this.email = data.email        
+      
+      const userToken = localStorage.getItem("userToken")
+      this.token = userToken
   },
 
   methods:{
@@ -169,7 +185,7 @@ export default {
         },
         body: JSON.stringify({
           firstname: this.prenom,
-          lastname: this.nom,
+          lastname: this.                                                                                                                                                                                                                                                                                                                            nom,
           email: this.email,
           })
       }
@@ -185,6 +201,13 @@ export default {
 </script>
 
 <style scoped>
+.validforPassword {
+  border: grey solid 1px;
+  border-radius: 2px;
+}
+.notValidforPassword {
+  border: red solid 2px;
+}
 
 .uppercase {
   text-transform: uppercase;
@@ -195,14 +218,15 @@ export default {
   color: black;
 }
 
-.container{
+.container-edit{
   display: flex;
   justify-content: center;
-  margin: 200px auto 100px auto;
+  margin: 0 auto 100px auto;
   width: 650px;
   box-shadow: 4px 8px 16px 10px rgba(175,175,175,0.75);
   padding: 50px;
   color: #405e63;
+  background-color: #cad2c5;
 }
 input{
   padding: 5px;

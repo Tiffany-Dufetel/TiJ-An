@@ -1,7 +1,7 @@
 <template>
 <Navbar
     buttonName="SE CONNECTER"/>
-  <div class="container">
+  <div class="container-form">
     <form>
       <div class="container-nomprenom">
         <div class="container-prenom">
@@ -164,14 +164,15 @@ export default {
 }
 
 
-.container{
+.container-form{
   display: flex;
   justify-content: center;
-  margin: 200px auto 100px auto;
+  margin: 0 auto 100px auto;
   width: 650px;
   box-shadow: 4px 8px 16px 10px rgba(175,175,175,0.75);
   padding: 50px;
   color: #405e63;
+  background-color: #cad2c5;
 }
 input{
   padding: 5px;

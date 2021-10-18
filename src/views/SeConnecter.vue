@@ -7,7 +7,7 @@
       <input type="email" v-model="email" name="id" class="input-text"/><br/>
 
       <label for="password">MOT DE PASSE</label><br/>
-      <input type="password" v-model="password" name="password" class="input-text"/><br />
+      <input type="password" v-model="password" name="password" class="input-text" @keyup.enter="btnConnexion"/><br />
       
       <div class="rememberme-container">
         <div class="checkbox"><input type="checkbox" id="checkbox"></div><br />
@@ -72,14 +72,7 @@ export default {
       if (this.status == true) {
       this.$router.push({ name: "HomeConnected" });
           return;}
-      // const successStatus = dataLogin.success
-      // console.log("success",successStatus)
-      
-      // if(successStatus == true){
-      //   alert("coucou")
-      // } else {
-      //   alert("salut")
-      // }
+
     },
 
   }
@@ -94,7 +87,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    margin: 15% auto 100px auto;
+    margin: 8% auto 100px auto;
     height: 100%;
     width: 500px;
     box-shadow: 4px 8px 16px 10px rgba(175,175,175,0.75);
