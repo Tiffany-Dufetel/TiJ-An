@@ -7,41 +7,19 @@
       <div class="container-nomprenom">
         <div class="container-prenom">
           <label for="prenom" class="uppercase">prénom* </label><br />
-          <input
-            type="text"
-            v-model="prenom"
-            id="prenom"
-            required
-          /><br />
+          <input type="text" v-model="prenom" id="prenom" required /><br />
         </div>
         <div class="container-nom">
           <label for="nom" class="uppercase">nom* </label><br />
-          <input
-            type="text"
-            v-model="nom"
-            id="nom"
-            required
-          /><br />
+          <input type="text" v-model="nom" id="nom" required /><br />
         </div>
-
-
       </div>
 
-        <label for="email">ADRESSE MAIL* </label><br />
-        <input
-          type="email"
-          id="email"
-          v-model="email"
-          required
-        /><br />
+      <label for="email">ADRESSE MAIL* </label><br />
+      <input type="email" id="email" v-model="email" required /><br />
 
-        <label for="pseudo" class="uppercase">Pseudo* </label><br />
-        <input
-          type="text"
-          v-model="pseudo"
-          id="pseudo"
-          required
-        /><br />
+      <label for="pseudo" class="uppercase">Pseudo* </label><br />
+      <input type="text" v-model="pseudo" id="pseudo" required /><br />
 
       <label for="password">
         <span class="uppercase">mot de passe*</span> (doit contenir 8 caractères
@@ -55,56 +33,49 @@
         required
       /><br />
 
+      <label for="date" class="uppercase">date de naissance* </label><br />
+      <input type="date" v-model="date" id="date" required /><br />
 
-        <label for="date" class="uppercase">date de naissance* </label><br />
-        <input type="date" v-model="date" id="date" required /><br />
+      <label for="gender" class="uppercase">sexe*</label><br />
+      <select name="gender" id="gender" required>
+        <option value="Homme">Homme</option>
+        <option value="Femme">Femme</option>
+      </select>
 
-          <label for="gender" class="uppercase">sexe*</label><br />
-          <select name="gender" id="gender" required>
-            <option value="Homme">Homme</option>
-            <option value="Femme">Femme</option>
-          </select>
-
-          <label for="profilPic" class="uppercase">choisir ma photo</label
-          ><br />
-          <input type="file" accept="image/*" />
+      <label for="profilPic" class="uppercase">choisir ma photo</label><br />
+      <input type="file" accept="image/*" />
 
       <h2 class="uppercase">- rajouter plus d'infos -</h2>
 
-        <label for="description">
-            <span class="uppercase">description</span> (maximum 200 caractères)
-        </label><br />
-        <textarea
-          name="description"
-          id="description"
-          v-model="description"
-          cols="30"
-          rows="10"
-          maxlength="200"
-        ></textarea><br/>
+      <label for="description">
+        <span class="uppercase">description</span> (maximum 200 caractères) </label
+      ><br />
+      <textarea
+        name="description"
+        id="description"
+        v-model="description"
+        cols="30"
+        rows="10"
+        maxlength="200"
+      ></textarea
+      ><br />
 
-        <label for="visitedCountry" class="uppercase">pays déjà visité(s) </label
-        ><br />
-        <input
-          v-model="visitedCountry"
-          type="text"
-          id="visitedCountry"
-        /><br />
+      <label for="visitedCountry" class="uppercase">pays déjà visité(s) </label
+      ><br />
+      <input v-model="visitedCountry" type="text" id="visitedCountry" /><br />
 
-        <label for="travellerType" class="uppercase">type de voyageur</label>
-        <select
-          name="travellerType"
-          id="travellerType"
-          v-model="travellerTypeValue"
-        >
-          <option value="Backpacker">Backpacker</option>
-          <option value="NormalTourist">Voyageur basique</option>
-          <option value="All-In">Voyageur All-In</option>
-        </select>
+      <label for="travellerType" class="uppercase">type de voyageur</label>
+      <select
+        name="travellerType"
+        id="travellerType"
+        v-model="travellerTypeValue"
+      >
+        <option value="Backpacker">Backpacker</option>
+        <option value="NormalTourist">Voyageur basique</option>
+        <option value="All-In">Voyageur All-In</option>
+      </select>
 
-      <button @click="updateClick" class="uppercase">
-          Actualiser
-      </button>
+      <button @click="updateClick" class="uppercase">Actualiser</button>
 
     </form>
   </div>
@@ -136,7 +107,7 @@ export default {
       prenom: "",
       pseudo: "",
       password: "",
-      email:"",
+      email: "",
       date: "",
       gender: "",
       description: "",
@@ -150,17 +121,17 @@ export default {
     },
   },
 
-  async mounted(){
-      const usertoken = localStorage.getItem("userToken")
-      console.log(usertoken)
+  async mounted() {
+    const usertoken = localStorage.getItem("userToken");
+    console.log(usertoken);
 
-      const options= {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization" : "Bearer " + usertoken
-        }
-      }
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + usertoken,
+      },
+    };
 
       const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
       const response = await fetch (url,options)
@@ -174,29 +145,28 @@ export default {
       this.token = userToken
   },
 
-  methods:{
-    async updateClick(){
-      const usertoken = localStorage.getItem("userToken")
-      const options={
+  methods: {
+    async updateClick() {
+      const usertoken = localStorage.getItem("userToken");
+      const options = {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization" : "Bearer " + usertoken
+          Authorization: "Bearer " + usertoken,
         },
         body: JSON.stringify({
           firstname: this.prenom,
           lastname: this.                                                                                                                                                                                                                                                                                                                            nom,
           email: this.email,
-          })
-      }
+        }),
+      };
 
-      const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
-      const response= await fetch (url,options)
-      const data= await response.json()
-      console.log("update", data)
-
-    }
-  }
+      const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user";
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log("update", data);
+    },
+  },
 };
 </script>
 
@@ -223,12 +193,12 @@ export default {
   justify-content: center;
   margin: 0 auto 100px auto;
   width: 650px;
-  box-shadow: 4px 8px 16px 10px rgba(175,175,175,0.75);
+  box-shadow: 4px 8px 16px 10px rgba(175, 175, 175, 0.75);
   padding: 50px;
   color: #405e63;
   background-color: #cad2c5;
 }
-input{
+input {
   padding: 5px;
   width: 582px;
   height: 30px;
@@ -237,7 +207,7 @@ input{
   outline: none;
 }
 
-textarea{
+textarea {
   padding: 5px;
   width: 582px;
   height: 160px;
@@ -246,22 +216,23 @@ textarea{
   outline: none;
 }
 
-label{
+label {
   margin-left: 10px;
 }
 
-.container-nomprenom{
+.container-nomprenom {
   display: flex;
 }
 
-.container-nom{
-    margin-left: 10px;
+.container-nom {
+  margin-left: 10px;
 }
 
-.container-nom input, .container-prenom input{
+.container-nom input,
+.container-prenom input {
   width: 280px;
 }
-button{
+button {
   display: block;
   margin: 20px auto 0 auto;
   margin-right: auto;
@@ -272,13 +243,12 @@ button{
   color: 405e63;
   padding: 5px 80px;
   color: #405e63;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 800;
 }
-.error-message{
+.error-message {
   text-align: center;
   font-size: 12px;
   color: red;
 }
-
 </style>
