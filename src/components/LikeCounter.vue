@@ -80,7 +80,7 @@ export default {
 }
 
 .likeClick {
-  background-color: red;
+  background-color: rgb(185, 0, 0);
 }
 
 .notClick {

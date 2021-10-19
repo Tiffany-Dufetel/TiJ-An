@@ -37,18 +37,18 @@
       <input type="date" v-model="date" id="date" required /><br />
 
       <label for="gender" class="uppercase">sexe*</label><br />
-      <select name="gender" id="gender" required>
+      <select name="gender" id="gender"  v-model="gender" required>
         <option value="Homme">Homme</option>
         <option value="Femme">Femme</option>
       </select>
 
       <label for="profilPic" class="uppercase">choisir ma photo</label><br />
-      <input type="file" accept="image/*" />
+      <input type="file" accept="image/*" @change="downloadImage"/>
 
       <h2 class="uppercase">- rajouter plus d'infos -</h2>
 
       <label for="description">
-        <span class="uppercase">description</span> (maximum 200 caractères) </label
+        <span class="uppercase">description</span> (maximum 500 caractères) </label
       ><br />
       <textarea
         name="description"
@@ -56,7 +56,7 @@
         v-model="description"
         cols="30"
         rows="10"
-        maxlength="200"
+        maxlength="500"
       ></textarea
       ><br />
 
@@ -68,7 +68,7 @@
       <select
         name="travellerType"
         id="travellerType"
-        v-model="travellerTypeValue"
+        v-model="travellerType"
       >
         <option value="Backpacker">Backpacker</option>
         <option value="NormalTourist">Voyageur basique</option>
@@ -112,7 +112,9 @@ export default {
       gender: "",
       description: "",
       visitedCountry: "",
-      travellerTypeValue: "",
+      travellerType: "",
+      age:"",
+      profilePicture: null,
     };
   },
   computed: {
@@ -140,7 +142,13 @@ export default {
       this.prenom = data.firstname
       this.nom = data.lastname
       this.email = data.email   
-      this.pseudo = data.pseudo   
+      this.pseudo = data.pseudo
+      this.description = data.description   
+      this.gender = data.gender
+      this.visitedCountry = data.visitedCountry
+      this.travellerType = data.travellerType
+      this.profilePicture = data.profilePicture
+      this.age = data.age
       
       console.log(this.pseudo)
       
@@ -162,6 +170,12 @@ export default {
           lastname: this.                                                                                                                                                                                                                                                                                                                            nom,
           email: this.email,
           pseudo: this.pseudo,
+          description: this.description,
+          gender: this.gender,
+          visitedCountry: this.visitedCountry,
+          travellerType: this.travellerType,
+          age: this.age,
+          profilePicture: this.profilePicture
         }),
       };
 
@@ -169,6 +183,16 @@ export default {
       const response = await fetch(url, options);
       const data = await response.json();
       console.log("update", data);
+    },
+
+    downloadImage(e){
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.profilePicture = e.target.result;
+        console.log(this.profilePicture);
+      };
     },
   },
 };

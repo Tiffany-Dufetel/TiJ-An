@@ -38,8 +38,6 @@ export default {
 
 #nav img{
     left: 0;
-    /* right: 0; */
-    /* margin-left: auto;*/
     margin-left: 40px; 
     display: flex;
     width: 200px;
@@ -53,6 +51,7 @@ export default {
     font-weight: 200;
     text-decoration: none;
     color: #405e63;
+    width: 250px;
 
 }
 
@@ -67,5 +66,17 @@ export default {
 
 .btn-home, .btn-co, .btn-edit, .btn-profile{
     margin-left: 10px;
+}
+
+@media screen and (min-width: 200px) and (max-width: 640px) {
+    #nav img{
+        display: none;
+    }
+    #nav{
+    background-image: url("../assets/bg-navbar-mob.jpg");
+    }
+    .boutons{
+    margin: 71px 5px 5px 20px;
+    }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div v-if="token">
         <NavbarConnected
-            buttonName="SE DECONNECTER"/>
+            buttonName="DECONNECTER"/>
         
         <CreatePost/>
             <div class="article">

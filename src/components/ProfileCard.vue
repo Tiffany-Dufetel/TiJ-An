@@ -1,26 +1,21 @@
 <template>
   <div class="profileCard">
     <div class="profilePicture">
-      <img src="../assets/pic-profile.jpg"/>
+      <img :src="profilePicture"/>
     </div>
 
     <div class="profileContent">
       <div class="pseudo-travellerType">
-        <h2 class="affichagePseudo">{{prenom}} {{nom.toUpperCase()}}</h2>
+        <h2 class="affichagePseudo">{{pseudo.toUpperCase()}}</h2>
         <p class="affichageTravellerTypeValue"></p>
       </div>
       <p class="description">
-        Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam ex sem, convallis 
-        id erat in, dapibus ullamcorper orci. Mauris ac scelerisque est, non laoreet nulla. 
-        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-        Maecenas tempus tellus in mollis porttitor. Duis vitae arcu justo. Phasellus rutrum 
-        magna non neque dapibus ullamcorper. Nam vitae ex et metus sollicitudin volutpat at 
-        nec odio. Morbi ante libero, facilisis eget laoreet cursus, egestas pharetra elit.
+        {{description}}
       </p>
 
       <p class="affichageVisitedCountry">
-        PAYS VISITE(S): Croatie, Inde, UK, USA<br/>
-        TYPE DE VOYAGEUR: Backpacker
+        <b>PAYS VISITE(S):</b> {{visitedCountry}}<br/>
+        <b>TYPE DE VOYAGEUR:</b> {{travellerType}}
       </p>
     </div>
   </div>
@@ -31,7 +26,12 @@ export default {
   data() {
     return{
       prenom: "",
-      nom: ""
+      nom: "",
+      description: "",
+      visitedCountry: "",
+      travellerType: "",
+      pseudo: "",
+      profilePicture: "",
     }
   },
   async mounted(){
@@ -52,6 +52,11 @@ export default {
       console.log("oulah2",data)
       this.prenom = data.firstname
       this.nom = data.lastname
+      this.description = data.description
+      this.travellerType = data.travellerType
+      this.visitedCountry = data.visitedCountry
+      this.pseudo = data.pseudo
+      this.profilePicture = data.profilePicture
   },
 };
 </script>
@@ -69,6 +74,9 @@ export default {
 }
 
 .profilePicture img{
+  width:250px;
+  height: 250px;
+  object-fit: cover;
   border-radius: 50%;
   display: flex;
 }

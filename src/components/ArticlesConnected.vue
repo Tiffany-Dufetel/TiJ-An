@@ -2,13 +2,10 @@
 <div class="container">
   <div class="container-article">
     <div class="container-entete">
-      <div class="photo-profile">
-        <!-- <router-link to="/profileinfo"> -->
-        <a @click="getUser"><img src="../assets/pic-profile.jpg"></a>
-        <!-- </router-link> -->
-      </div>
       <div class="container-id">
-        <p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
+        <a @click="getUser">
+          <p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
+        </a>
         <p class="date">{{dateArticle}}</p>
       </div>
     </div>
@@ -23,9 +20,10 @@
      <LikeCounter :initialLikeNumber="likes.length" :postId="postId" />
   </div>
   <div class="container-photos" style="overflow-y: scroll; height:400px; width:250px">
-    <img src="../assets/a.jpg"/><br/>
-    <img src="../assets/ab.jpg"/><br/>
-    <img src="../assets/abc.jpg">
+    <modale :revele="revele" :toggleModale="toggleModale"></modale>
+    <img src="../assets/a.jpg" @click="toggleModale" class="btn btn-success"/><br/>
+    <img src="../assets/ab.jpg" @click="toggleModale" class="btn btn-success"/><br/>
+    <img src="../assets/abc.jpg" @click="toggleModale" class="btn btn-success"/>
   </div>
 </div>
 
@@ -61,6 +59,7 @@
 </template>
 
 <script>
+import Modale from "../components/Modale.vue"
 import LikeCounter from "../components/LikeCounter.vue"
 
 export default {
@@ -77,6 +76,7 @@ export default {
   },
   components: {
     LikeCounter: LikeCounter,
+    "Modale": Modale,
   },
 
 
@@ -87,10 +87,15 @@ export default {
         textareaCom: "",
         arrayPosts: [],
         arrayComments: [],
+        revele: false,
+        profilePicture: "",
     }
   },
 
   methods:{
+      toggleModale(){
+        this.revele = !this.revele
+      },
       async sendCom(){
         window.location.reload();
 
@@ -121,6 +126,26 @@ export default {
           params: {userId: this.getId}
         })
       }
+  },
+
+  async mounted(){
+    const usertoken = localStorage.getItem("userToken")
+    console.log(usertoken)
+
+    const options= {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" : "Bearer " + usertoken
+      }
+    }
+
+    const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
+    const response = await fetch (url,options)
+    var data = await response.json()
+    console.log("oulah2",data)
+    this.profilePicture = data.profilePicture
+    console.log(this.profilePicture)
   }
 }
 </script>
@@ -181,6 +206,9 @@ hr{
 
 }
 
+.container-id{
+  padding: 10px;
+}
 
 .commentaires{
   padding: 0 40px;
