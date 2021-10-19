@@ -49,7 +49,7 @@ export default {
       const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
       const response = await fetch (url,options)
       var data = await response.json()
-      console.log("oulah",data)
+      console.log("oulah2",data)
       this.prenom = data.firstname
       this.nom = data.lastname
   },

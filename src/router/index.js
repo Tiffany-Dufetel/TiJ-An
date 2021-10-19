@@ -45,6 +45,7 @@ const routes = [
     path: "/profileInfo",
     name: "profileInfo",
     component: ProfileInfo,
+    props: true,
   },
 ];
 

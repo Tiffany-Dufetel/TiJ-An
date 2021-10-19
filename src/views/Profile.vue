@@ -24,7 +24,7 @@
     <div v-else>
         <Navbar
             buttonName="SE CONNECTER"/>
-        <p class="message-erreur">OH OH... VOUS DEVEZ ÊTRE CONNECTE POUR ACCEDER A CETTE PAGE</p>
+          <MessageErreur/>
     </div>
 <Footer/>
 </template>
@@ -38,8 +38,12 @@ import Footer from "../components/Footer.vue";
 import ProfileCard from "../components/ProfileCard.vue";
 import CreatePost from "../components/CreatePost.vue";
 import ArticlesConnected from "../components/ArticlesConnected.vue";
+import MessageErreur from "../components/MessageErreur.vue"
 
 export default {
+  props: {
+    userId: String,
+  },
   data(){
     return{
       token: true,
@@ -54,6 +58,7 @@ export default {
     Navbar: Navbar,
     Footer: Footer,
     ArticlesConnected: ArticlesConnected,
+    MessageErreur: MessageErreur,
   },
     async mounted(){
         const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts?limit=5"

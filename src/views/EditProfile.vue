@@ -139,7 +139,10 @@ export default {
       console.log("oulah",data)
       this.prenom = data.firstname
       this.nom = data.lastname
-      this.email = data.email        
+      this.email = data.email   
+      this.pseudo = data.pseudo   
+      
+      console.log(this.pseudo)
       
       const userToken = localStorage.getItem("userToken")
       this.token = userToken
@@ -158,6 +161,7 @@ export default {
           firstname: this.prenom,
           lastname: this.                                                                                                                                                                                                                                                                                                                            nom,
           email: this.email,
+          pseudo: this.pseudo,
         }),
       };
 

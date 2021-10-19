@@ -17,7 +17,7 @@
                 :comments="element.comments"
                 :likes="element.likes"
                 :userId="element.userId"
-                :commentsLike="element.comments.likes"
+                :commentsLikes="element.comments.likes"
             />
             </div>
     </div>
@@ -25,7 +25,7 @@
     <div v-else>
         <Navbar
             buttonName="SE CONNECTER"/>
-        <p class="message-erreur">OH OH... VOUS DEVEZ ÊTRE CONNECTE POUR ACCEDER A CETTE PAGE</p>
+        <MessageErreur/>
     </div>
 
     
@@ -38,14 +38,20 @@ import Footer from "../components/Footer.vue"
 import NavbarConnected from "../components/NavbarConnected.vue"
 import CreatePost from "../components/CreatePost.vue"
 import Navbar from "../components/Navbar.vue"
+import MessageErreur from "../components/MessageErreur.vue"
 
 export default {
+    props: {
+        userId: String,
+    },
+
     components:{
         "Footer": Footer,
         "NavbarConnected": NavbarConnected,
         "ArticlesConnected": ArticlesConnected,
         "CreatePost": CreatePost,
         "Navbar" : Navbar,
+        "MessageErreur": MessageErreur,
     },
     data(){
         return{
@@ -68,7 +74,12 @@ export default {
         const userToken = localStorage.getItem("userToken")
         this.token = userToken
         // this.pages = "11"
+
+        const token = localStorage.getItem("userToken")
+        console.log(token)
+    
     }
+
     
 }
 </script>
@@ -80,16 +91,5 @@ textarea{
     height: 250px;
 }
 
-.message-erreur{
-    background-color: white;
-    height: 150px;
-    width: 800px;
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    margin-bottom: 500px;
-}
+
 </style>

@@ -3,10 +3,12 @@
   <div class="container-article">
     <div class="container-entete">
       <div class="photo-profile">
-        <router-link to="/profileinfo"><a @click="getUser"><img src="../assets/pic-profile.jpg"></a></router-link>
+        <!-- <router-link to="/profileinfo"> -->
+        <a @click="getUser"><img src="../assets/pic-profile.jpg"></a>
+        <!-- </router-link> -->
       </div>
       <div class="container-id">
-        <p class="identite">{{test}}{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
+        <p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
         <p class="date">{{dateArticle}}</p>
       </div>
     </div>
@@ -59,13 +61,10 @@
 </template>
 
 <script>
-import LikeCounter from "../components/LikeCounter.vue";
+import LikeCounter from "../components/LikeCounter.vue"
 
 export default {
-  components: {
-    LikeCounter: LikeCounter,
-  },
-  props:{
+    props:{
     nomArticle: String,
     prenomArticle: String,
     dateArticle: String,
@@ -76,14 +75,18 @@ export default {
     likes: Array,
     userId: String,
   },
+  components: {
+    LikeCounter: LikeCounter,
+  },
+
 
   data(){
     return{
+        getId: this.userId,
         id:"",
         textareaCom: "",
         arrayPosts: [],
         arrayComments: [],
-        test: "",
     }
   },
 
@@ -113,23 +116,10 @@ export default {
         this.textareaCom =""
       },
       async getUser(){
-        const token = localStorage.getItem("userToken")
-        console.log(token)
-        
-        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user/" + this.userId
-        const options = {
-          method: "GET",
-          headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token,
-          },
-          parameters: { 
-            id: this.userId,
-          }
-        }
-        const response = await fetch (url,options)
-        const data = await response.json()
-        console.log("datauser",data)
+        this.$router.replace({
+          name: "profileInfo",
+          params: {userId: this.getId}
+        })
       }
   }
 }
