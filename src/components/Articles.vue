@@ -1,10 +1,8 @@
 <template>
+
 <div class="container">
   <div class="container-article">
     <div class="container-entete">
-      <div class="photo-profile">
-        <img src="../assets/pic-profile.jpg">
-      </div>
       <div class="container-id">
         <p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
         <p class="date">{{dateArticle}}</p>
@@ -14,15 +12,13 @@
       <div class="container-titre">
         <p>{{titleArticle}}</p>
       </div>
-      <div class="container-content">
-        <p>{{contentArticle}}</p>
+      <div class="container-content" style="overflow-y: scroll; height:250px;">
+        <p>{{contentArticle}} </p>
       </div>
     </div>
   </div>
-  <div class="container-photos" style="overflow-y: scroll; height:400px; width:250px">
-    <img src="../assets/a.jpg"/><br/>
-    <img src="../assets/ab.jpg"/><br/>
-    <img src="../assets/abc.jpg">
+  <div class="container-photos">
+    <img :src="imageUrl" class="btn btn-success"/>
   </div>
 </div>
 
@@ -31,18 +27,21 @@
 <script>
 
 export default {
+
   props:{
     nomArticle: String,
     prenomArticle: String,
     dateArticle: String,
     titleArticle: String,
     contentArticle: String,
+    imageUrl: String,
   },
   data(){
-  return{
-    arrayPosts: [],
-  }
+    return{
+      arrayPosts: [],
+    }
   },
+
 }
 </script>
 <style>
@@ -75,26 +74,30 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
   background: #679299; 
 }
-img{
-  width: 200px;
+img.btn.btn-success{
+  width: 265px;
+  height: 390px;
+  object-fit: cover;
 }
 .container-entete{
-  display: flex;
-  margin-left: 15px;
+    background-color: #eeeeee;
+    display: flex;
+    margin-right: 40px;
 }
 .photo-profile img{
   width: 80px;
   border-radius: 50%;
 }
 .container-id{
-  margin-left: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
 }
 .identite{
   font-weight: 600;
   margin: 0;
+  cursor: pointer;
 }
 .date{
   font-size: 13px;
@@ -102,7 +105,7 @@ img{
 }
 .container-decription{
   font-size: 14px;
-  padding: 20px 40px 20px 20px 
+  padding: 20px 40px 20px 0px 
 }
 .container-titre{
   text-transform: uppercase;

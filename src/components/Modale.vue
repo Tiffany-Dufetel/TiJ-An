@@ -4,7 +4,7 @@
 
     <div class="modale card">
       <div v-on:click="toggleModale" class="btn-modale btn btn-danger">X</div>
-        <img src="../assets/a.jpg">
+        <img :src="imageUrl">
     </div>
   </div>
 </template>
@@ -12,7 +12,26 @@
 <script>
 export default {
   name: "Modale",
-  props: ["revele", "toggleModale"]
+  props: ["revele", "toggleModale"],
+
+  data(){
+    return{
+      arrayPosts: [],
+      imageUrl: ""
+    }
+  },
+
+      async mounted(){
+        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
+
+        const response = await fetch (url)
+        const dataPosts = await response.json()
+        this.arrayPosts = dataPosts.posts
+        this.imageUrl = dataPosts.posts[0].imageUrl
+
+        const userToken = localStorage.getItem("userToken")
+        this.token = userToken
+    }
 };
 </script>
 
@@ -52,6 +71,6 @@ export default {
 }
 
 img{
-    width: 500px;
+    width: 800px;
 }
 </style>

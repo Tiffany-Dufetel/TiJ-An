@@ -3,9 +3,7 @@
   <div class="container-article">
     <div class="container-entete">
       <div class="container-id">
-        <a @click="getUser">
-          <p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p>
-        </a>
+        <a @click="getUser"><p class="identite">{{nomArticle.toUpperCase()}} {{prenomArticle}}</p></a>
         <p class="date">{{dateArticle}}</p>
       </div>
     </div>
@@ -14,16 +12,14 @@
         <p>{{titleArticle}}</p>
       </div>
       <div class="container-content" style="overflow-y: scroll; height:250px;">
-        <p>{{contentArticle}}</p>
+        <p>{{contentArticle}} </p>
       </div>
     </div>
      <LikeCounter :initialLikeNumber="likes.length" :postId="postId" />
   </div>
-  <div class="container-photos" style="overflow-y: scroll; height:400px; width:250px">
+  <div class="container-photos">
     <modale :revele="revele" :toggleModale="toggleModale"></modale>
-    <img src="../assets/a.jpg" @click="toggleModale" class="btn btn-success"/><br/>
-    <img src="../assets/ab.jpg" @click="toggleModale" class="btn btn-success"/><br/>
-    <img src="../assets/abc.jpg" @click="toggleModale" class="btn btn-success"/>
+    <img :src="imageUrl" @click="toggleModale" class="btn btn-success"/>
   </div>
 </div>
 
@@ -43,9 +39,6 @@
       v-for="(element,index) in comments" 
       :key="index"
     >
-        <div class="pic-commentaire">
-          <img src="../assets/pic-profile.jpg">
-        </div>
         <div class="comm">
           <p>
             {{element.content}}<br/>
@@ -73,6 +66,7 @@ export default {
     comments: Array,
     likes: Array,
     userId: String,
+    imageUrl: String
   },
   components: {
     LikeCounter: LikeCounter,
@@ -88,7 +82,6 @@ export default {
         arrayPosts: [],
         arrayComments: [],
         revele: false,
-        profilePicture: "",
     }
   },
 
@@ -127,26 +120,6 @@ export default {
         })
       }
   },
-
-  async mounted(){
-    const usertoken = localStorage.getItem("userToken")
-    console.log(usertoken)
-
-    const options= {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization" : "Bearer " + usertoken
-      }
-    }
-
-    const url="https://dw-s3-nice-tijean.osc-fr1.scalingo.io/user"
-    const response = await fetch (url,options)
-    var data = await response.json()
-    console.log("oulah2",data)
-    this.profilePicture = data.profilePicture
-    console.log(this.profilePicture)
-  }
 }
 </script>
 <style scoped>
@@ -158,7 +131,7 @@ hr{
   padding-top: 20px;
   border: none;
   width: 100%;
-  height: 135px;
+  height: 80px;
   font-family: 'Montserrat', sans-serif;
   outline: none;
 }
@@ -175,7 +148,7 @@ hr{
   background-color: white;
   width: 80%;
   padding: 0 40px;
-  height:200px;
+  height:130px;
 }
 .comment button{
   display: block;
@@ -206,9 +179,6 @@ hr{
 
 }
 
-.container-id{
-  padding: 10px;
-}
 
 .commentaires{
   padding: 0 40px;

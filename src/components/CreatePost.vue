@@ -7,6 +7,9 @@
      <div class="container">
         <div class="container-create-textarea">
           <textarea name="description" id="description" v-model="content" placeholder="Ecrivez votre nouveau post..."></textarea><br/>
+          <div class="inputFile">
+            <input type="file" @change="downloadPicture" class="custom-file-input">
+          </div>
         </div>
     </div>
     <div class="container-btn">
@@ -20,11 +23,12 @@ export default {
     return {
       title: "",
       content: "",
+      imageUrl:null,
     };
   },
   methods: {
     async btnSend(){
-      window.location.reload();
+      // window.location.reload();
 
       const usertoken = localStorage.getItem("userToken")
       console.log("LS TOKEN",usertoken)
@@ -39,17 +43,25 @@ export default {
           body: JSON.stringify({
             title: this.title,
             content: this.content,
+            image: this.imageUrl
           })
         }
 
         const response = await fetch (url, options)
           const dataPosts = await response.json()
           console.log("dataPosts",dataPosts)
-
           this.content =""
           this.title=""
         },
-
+    downloadPicture(e){
+      const imagePost = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(imagePost);
+      reader.onload = (e) => {
+      this.imageUrl = e.target.result;
+      console.log("ok",this.imageUrl);
+      };
+    }
         
     },
 };
@@ -119,6 +131,36 @@ export default {
 }
 textarea#description{
   width: 98%;
+}
+
+.input-file{
+  display: flex;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'SELECTIONNER VOTRE PHOTO';
+  display: inline-block;
+  background-color: #cad2c5;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 10px;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 10pt;
+  color: #405e63;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  margin-left: auto;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
 </style>

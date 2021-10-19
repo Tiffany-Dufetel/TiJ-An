@@ -12,11 +12,13 @@
         :dateArticle="element.date"
         :titleArticle="element.title"
         :contentArticle="element.content"
+        :imageUrl="element.imageUrl"
     />
     <Footer/>
 </template>
 
 <script>
+// Importation des composants
 import Articles from '../components/Articles.vue';
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue"
@@ -26,6 +28,7 @@ import Footer from "../components/Footer.vue"
 export default {
   data(){
   return{
+    // tableau des posts
     arrayPosts: []
   }
 },
@@ -35,6 +38,7 @@ export default {
     "Navbar": Navbar,
   },
   async mounted(){
+    // requete pour recevoir les posts
     const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
 
     const response = await fetch (url)

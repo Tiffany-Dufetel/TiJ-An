@@ -70,17 +70,12 @@
       ><br />
       <p>Ajoutez votre photo de profil :</p>
 
-      <form action="/action_page.php">
-        <input
-          type="file"
-          id="myFile"
-          name="filename"
-          @change="onFileSelected"
-        />
-      </form>
+      <input type="file" accept="image/*" @change="downloadImage"/>
 
       <p class="error-message">{{messageError}}</p>
-      <button @click="btnLogin">S'INSCRIRE</button>
+      <router-link to="seconnecter">
+        <button @click="btnLogin">S'INSCRIRE</button>
+      </router-link>
     </form>
   </div>
   <Footer/>
@@ -88,6 +83,7 @@
 </template>
 
 <script>
+// importation composants
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
@@ -103,6 +99,7 @@ export default {
       sexeLog: "",
       messageError: "",
       selectedFile: null,
+      profilePicture: null,
     };
   },
   components: {
@@ -110,9 +107,12 @@ export default {
     Footer: Footer,
   },
   computed: {
+    // password >8 caractères
     passwordValidity() {
       return this.passwordLog.length >= 8 && this.passwordLog.length <= 16;
     },
+
+    // age > 18
     birthValidity() {
       const currentDate = new Date();
       let customerDate = new Date(this.birth);
@@ -124,8 +124,10 @@ export default {
       return currentDate >= customerDate;
     },
   },
+
   methods: {
     async btnLogin() {
+      //requete pour créer un utilisateur
       const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/register";
       const options = {
         method: "POST",
@@ -139,7 +141,8 @@ export default {
           pseudo: this.pseudoLog,
           password: this.passwordLog,
           datedenaissance: this.birthdayLog,
-          sexe: this.sexeLog,
+          gender: this.sexeLog,
+          profilePicture: this.profilePicture
         }),
       };
 
@@ -149,6 +152,18 @@ export default {
 
       this.messageError = dataLogin.message;
     },
+
+    // encodage photo de profile base 64
+    downloadImage(e){
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.profilePicture = e.target.result;
+        console.log(this.profilePicture);
+      };
+    },
+
   },
 };
 

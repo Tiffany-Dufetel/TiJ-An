@@ -18,6 +18,7 @@
             :comments="element.comments"
             :likes="element.likes"
             :userId="element.userId"
+            :imageUrl="element.imageUrl"
         />  
   </div>
 </div>
@@ -61,7 +62,8 @@ export default {
     MessageErreur: MessageErreur,
   },
     async mounted(){
-        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts?limit=5"
+        //requete pour recuperer posts
+        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
 
         const response = await fetch (url)
         const dataPosts = await response.json()

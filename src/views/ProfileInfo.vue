@@ -3,27 +3,18 @@
         buttonName= "SE DECONNECTER"/>
 
         <div class="profileCard">
-            <div class="profilePicture">
-            <img src="../assets/pic-profile.jpg"/>
-            </div>
-
             <div class="profileContent">
             <div class="pseudo-travellerType">
-                <h2 class="affichagePseudo">{{firstname}} {{lastname.toUpperCase()}}</h2>
+                <h2 class="affichagePseudo">{{firstname}} <span class="uppercase">{{lastname}}</span></h2>
                 <p class="affichageTravellerTypeValue"></p>
             </div>
             <p class="description">
-                Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam ex sem, convallis 
-                id erat in, dapibus ullamcorper orci. Mauris ac scelerisque est, non laoreet nulla. 
-                Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                Maecenas tempus tellus in mollis porttitor. Duis vitae arcu justo. Phasellus rutrum 
-                magna non neque dapibus ullamcorper. Nam vitae ex et metus sollicitudin volutpat at 
-                nec odio. Morbi ante libero, facilisis eget laoreet cursus, egestas pharetra elit.
+                {{description}}
             </p>
 
             <p class="affichageVisitedCountry">
-                PAYS VISITE(S): Croatie, Inde, UK, USA<br/>
-                TYPE DE VOYAGEUR: Backpacker
+                <b>PAYS VISITE(S):</b> {{visitedCountry}}<br/>
+                <b>TYPE DE VOYAGEUR:</b> {{travellerType}}
             </p>
             </div>
         </div>
@@ -44,6 +35,9 @@ export default {
         return{
             lastname: "",
             firstname:"",
+            description: "",
+            visitedCountry: "",
+            travellerType: "",
         }
     },
     components: { 
@@ -68,6 +62,9 @@ export default {
         console.log("oups",data)
         this.firstname = data.firstname
         this.lastname = data.lastname
+        this.description = data.description
+        this.visitedCountry = data.visitedCountry
+        this.travellerType = data.travellerType
     }
     
 }
@@ -108,5 +105,7 @@ export default {
   color: #415e64;
   margin-left: 40px;
 }
-
+.uppercase{
+    text-transform: uppercase;
+}
 </style>

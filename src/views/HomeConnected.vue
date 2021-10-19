@@ -1,12 +1,16 @@
 <template>
+    <!-- condition d'affichage si connecté ou pas "if"-->
     <div v-if="token">
         <NavbarConnected
             buttonName="DECONNECTER"/>
-        
+        <div class="search-bar">
+            <label for="search">Où voulez-vous voyager?</label><br/>
+            <input type="search" v-model="searchInput" @keyup.enter="filterInput" />
+        </div>
         <CreatePost/>
             <div class="article">
             <ArticlesConnected
-                v-for="(element,index) in arrayPosts"
+                v-for="(element,index) in filterInput"
                 :key="index"
                 :nomArticle="element.lastname"
                 :prenomArticle="element.firstname"
@@ -18,10 +22,12 @@
                 :likes="element.likes"
                 :userId="element.userId"
                 :commentsLikes="element.comments.likes"
+                :imageUrl="element.imageUrl"
             />
             </div>
     </div>
 
+    <!-- Suite condition "else"-->
     <div v-else>
         <Navbar
             buttonName="SE CONNECTER"/>
@@ -33,6 +39,7 @@
 </template>
 
 <script>
+// Importation des composants
 import ArticlesConnected from "../components/ArticlesConnected.vue"
 import Footer from "../components/Footer.vue"
 import NavbarConnected from "../components/NavbarConnected.vue"
@@ -57,29 +64,37 @@ export default {
         return{
             arrayPosts: [],
             token: true,
+            searchInput: "",
         }
     },
 
 
     async mounted(){
-        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts?limit=5"
+        //requete pour afficher les posts
+        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
 
         const response = await fetch (url)
         const dataPosts = await response.json()
-        console.log("POST",dataPosts)
         this.arrayPosts = dataPosts.posts
-
         console.log("coucou",this.arrayPosts)
 
-        const userToken = localStorage.getItem("userToken")
-        this.token = userToken
-        // this.pages = "11"
-
+        // recupération du token dans le local storage
         const token = localStorage.getItem("userToken")
+        this.token = token
         console.log(token)
+        
     
-    }
-
+    },
+    computed: {
+        //fonction pour barre de recherche
+        filterInput() {
+        return this.arrayPosts.filter((element) => {
+            return element.title
+            .toLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        });
+        },
+    },
     
 }
 </script>
@@ -90,6 +105,17 @@ textarea{
     width: 400px;
     height: 250px;
 }
+.search-bar{
+    position: absolute;
+    top: 30px;
+    right: 5%;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: white;
+}
 
-
+.search-bar input{
+    margin-top: 5px;
+}
 </style>

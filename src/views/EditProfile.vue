@@ -1,30 +1,69 @@
 <template>
+
+<!-- Condition si co ou pas 'if'-->
 <div v-if="token">
 <NavbarConnected
     buttonName="SE DECONNECTER"/>
   <div class="container-edit">
-    <form action="" class="editProfil">
+    <form class="editProfil">
+
       <div class="container-nomprenom">
         <div class="container-prenom">
-          <label for="prenom" class="uppercase">prénom* </label><br />
-          <input type="text" v-model="prenom" id="prenom" required /><br />
+          <label 
+            for="prenom" 
+            class="uppercase">
+              prénom* 
+          </label><br />
+          <input 
+            type="text" 
+            v-model="prenom" 
+            id="prenom" 
+            required 
+          /><br />
         </div>
+
         <div class="container-nom">
-          <label for="nom" class="uppercase">nom* </label><br />
-          <input type="text" v-model="nom" id="nom" required /><br />
+          <label 
+            for="nom" 
+            class="uppercase">
+              nom* 
+          </label><br />
+          <input 
+            type="text" 
+            v-model="nom" 
+            id="nom" 
+            required 
+          /><br />
         </div>
       </div>
 
-      <label for="email">ADRESSE MAIL* </label><br />
-      <input type="email" id="email" v-model="email" required /><br />
+      <label 
+        for="email">
+          ADRESSE MAIL* 
+      </label><br />
+      <input 
+        type="email" 
+        id="email" 
+        v-model="email" 
+        required 
+      /><br />
 
-      <label for="pseudo" class="uppercase">Pseudo* </label><br />
-      <input type="text" v-model="pseudo" id="pseudo" required /><br />
+      <label 
+        for="pseudo" 
+        class="uppercase">
+          Pseudo* 
+      </label><br />
+      <input 
+        type="text" 
+        v-model="pseudo" 
+        id="pseudo" 
+        required 
+      /><br />
 
-      <label for="password">
-        <span class="uppercase">mot de passe*</span> (doit contenir 8 caractères
-        minimum) : </label
-      ><br />
+      <label 
+        for="password">
+          <span class="uppercase">mot de passe*</span> (doit contenir 8 caractères minimum) : 
+      </label><br />
       <input
         id="password"
         type="password"
@@ -33,16 +72,33 @@
         required
       /><br />
 
-      <label for="date" class="uppercase">date de naissance* </label><br />
-      <input type="date" v-model="date" id="date" required /><br />
+      <label 
+        for="date" 
+        class="uppercase">
+          date de naissance* 
+      </label><br />
+      <input 
+        type="date" 
+        v-model="date" 
+        id="date" 
+        required 
+      /><br />
 
-      <label for="gender" class="uppercase">sexe*</label><br />
+      <label 
+        for="gender" 
+        class="uppercase">
+          sexe*
+      </label><br />
       <select name="gender" id="gender"  v-model="gender" required>
         <option value="Homme">Homme</option>
         <option value="Femme">Femme</option>
       </select>
 
-      <label for="profilPic" class="uppercase">choisir ma photo</label><br />
+      <label 
+        for="profilPic" 
+        class="uppercase">
+          choisir ma photo
+      </label><br />
       <input type="file" accept="image/*" @change="downloadImage"/>
 
       <h2 class="uppercase">- rajouter plus d'infos -</h2>
@@ -57,14 +113,23 @@
         cols="30"
         rows="10"
         maxlength="500"
-      ></textarea
-      ><br />
+      ></textarea><br />
 
-      <label for="visitedCountry" class="uppercase">pays déjà visité(s) </label
-      ><br />
-      <input v-model="visitedCountry" type="text" id="visitedCountry" /><br />
+      <label 
+        for="visitedCountry" 
+        class="uppercase">
+          pays déjà visité(s) 
+      </label><br />
+      <input 
+        v-model="visitedCountry" 
+        type="text" 
+        id="visitedCountry" /><br />
 
-      <label for="travellerType" class="uppercase">type de voyageur</label>
+      <label 
+        for="travellerType" 
+        class="uppercase">
+          type de voyageur
+      </label>
       <select
         name="travellerType"
         id="travellerType"
@@ -75,11 +140,18 @@
         <option value="All-In">Voyageur All-In</option>
       </select>
 
-      <button @click="updateClick" class="uppercase">Actualiser</button>
+        <!--Evement au clique pour actualiser profil-->
+        <button @click="updateClick" class="uppercase">Actualiser</button>
+        <!-- Condition qui affiche que le profile maj ok -->
+        <div class="message-update" v-show="update == true">
+          Votre profile a bien été mis à jour
+        </div>
 
     </form>
   </div>
 </div>
+
+  <!--Suite condition 'else'-->
     <div v-else>
         <Navbar
             buttonName="SE CONNECTER"/>
@@ -89,6 +161,7 @@
 </template>
 
 <script>
+// appel des composants
 import NavbarConnected from "../components/NavbarConnected.vue"
 import Footer from "../components/Footer.vue"
 import Navbar from "../components/Navbar.vue"
@@ -115,18 +188,24 @@ export default {
       travellerType: "",
       age:"",
       profilePicture: null,
+      update: false,
     };
   },
   computed: {
+    // forcer password a plus de 8 caractère
     passwordValidity() {
       return this.password.length >= 8 && this.password.length <= 16;
     },
   },
 
   async mounted() {
+    // recupération token dans local storage
     const usertoken = localStorage.getItem("userToken");
     console.log(usertoken);
+    this.token = usertoken
 
+
+    //requete information utilisateur
     const options = {
       method: "GET",
       headers: {
@@ -139,6 +218,8 @@ export default {
       const response = await fetch (url,options)
       var data = await response.json()
       console.log("oulah",data)
+
+      //recupération d'information pour les datas 
       this.prenom = data.firstname
       this.nom = data.lastname
       this.email = data.email   
@@ -150,14 +231,11 @@ export default {
       this.profilePicture = data.profilePicture
       this.age = data.age
       
-      console.log(this.pseudo)
-      
-      const userToken = localStorage.getItem("userToken")
-      this.token = userToken
   },
 
   methods: {
     async updateClick() {
+      //evenement au clique pour update profile utilisateur
       const usertoken = localStorage.getItem("userToken");
       const options = {
         method: "PUT",
@@ -183,8 +261,11 @@ export default {
       const response = await fetch(url, options);
       const data = await response.json();
       console.log("update", data);
+      this.update = data.success
+      console.log(this.update)
     },
 
+    //encodage image base 64
     downloadImage(e){
       const image = e.target.files[0];
       const reader = new FileReader();
@@ -278,5 +359,12 @@ button {
   text-align: center;
   font-size: 12px;
   color: red;
+}
+
+.message-update{
+  text-align: center;
+  font-weight: 400;
+  color: red;
+  font-size: 13px;
 }
 </style>
