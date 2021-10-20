@@ -43,13 +43,7 @@ export default {
     };
   },
   methods: {
-<<<<<<< HEAD
-    async btnSend(){
-      // window.location.reload();
-=======
     async btnSend() {
-      window.location.reload();
->>>>>>> 5ad9f2f37df7f8cd8420ad990863a50287ebd6a8
 
       const usertoken = localStorage.getItem("userToken");
       console.log("LS TOKEN", usertoken);
@@ -73,6 +67,8 @@ export default {
       console.log("dataPosts", dataPosts);
       this.content = "";
       this.title = "";
+      window.location.reload();
+
     },
     downloadPicture(e) {
       const imagePost = e.target.files[0];
@@ -82,6 +78,7 @@ export default {
         this.imageUrl = e.target.result;
         console.log("ok", this.imageUrl);
       };
+
     },
   },
 };
@@ -159,11 +156,7 @@ textarea#description {
   visibility: hidden;
 }
 .custom-file-input::before {
-<<<<<<< HEAD
-  content: 'PHOTO';
-=======
   content: "SELECTIONNER VOTRE PHOTO";
->>>>>>> 5ad9f2f37df7f8cd8420ad990863a50287ebd6a8
   display: inline-block;
   background-color: #cad2c5;
   border: none;
