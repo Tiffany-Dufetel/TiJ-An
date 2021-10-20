@@ -35,7 +35,9 @@
         /><br />
 
         <label for="date" class="uppercase"> date de naissance* </label><br />
-        <input type="date" v-model="date" id="date" required /><br />
+        <input type="date" v-model="date" id="date" required 
+        
+        /><br />
 
         <label for="gender" class="uppercase"> sexe* </label><br />
         <select name="gender" id="gender" v-model="gender" required>
@@ -75,7 +77,7 @@
         </select>
 
         <!--Evement au clique pour actualiser profil-->
-        <button @click="updateClick" class="uppercase">Actualiser</button>
+        <input type="submit" @click="updateClick" class="uppercase" @submit.prevent="updateClick" value="ACTUALISER">
         <!-- Condition qui affiche que le profile maj ok -->
         <div class="message-update" v-show="update == true">
           Votre profile a bien été mis à jour
