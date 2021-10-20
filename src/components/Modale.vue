@@ -1,10 +1,11 @@
 <template>
-      <div class="bloc-modale" v-if="revele">
+  <!--Component qui permet d'agrandir l'image d'un article sous forme de Pop-up au clic-->
+  <div class="bloc-modale" v-if="revele">
     <div class="overlay" v-on:click="toggleModale"></div>
 
     <div class="modale card">
       <div v-on:click="toggleModale" class="btn-modale btn btn-danger">X</div>
-        <img :src="imageUrl">
+      <img :src="imageUrl" />
     </div>
   </div>
 </template>
@@ -14,24 +15,24 @@ export default {
   name: "Modale",
   props: ["revele", "toggleModale"],
 
-  data(){
-    return{
+  data() {
+    return {
       arrayPosts: [],
-      imageUrl: ""
-    }
+      imageUrl: "",
+    };
   },
 
-      async mounted(){
-        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
+  async mounted() {
+    const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts";
 
-        const response = await fetch (url)
-        const dataPosts = await response.json()
-        this.arrayPosts = dataPosts.posts
-        this.imageUrl = dataPosts.posts[0].imageUrl
+    const response = await fetch(url);
+    const dataPosts = await response.json();
+    this.arrayPosts = dataPosts.posts;
+    this.imageUrl = dataPosts.posts[0].imageUrl;
 
-        const userToken = localStorage.getItem("userToken")
-        this.token = userToken
-    }
+    const userToken = localStorage.getItem("userToken");
+    this.token = userToken;
+  },
 };
 </script>
 
@@ -70,7 +71,7 @@ export default {
   right: 10px;
 }
 
-img{
-    width: 800px;
+img {
+  width: 800px;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <!--Compteur de like qui sera declaré dans les articles, qui met une class selon une condition rempli ou non -->
   <div class="likeCounter">
     <img
       src="../assets/like.png"
@@ -32,6 +33,7 @@ export default {
     },
   },
 
+  //methods qui permettra de liker un article.
   methods: {
     async likeCounter() {
       const usertoken = localStorage.getItem("userToken");
@@ -53,6 +55,7 @@ export default {
       const data = await response.json();
       console.log("LikeNumber", data);
 
+      //Si on est connecté (data.success=true) le compteur ajoute +1
       if (data.success) {
         this.LikeNumber++;
       }

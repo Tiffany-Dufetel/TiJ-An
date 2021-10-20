@@ -1,5 +1,6 @@
 <template>
   <div class="commentsLikesCounter">
+    <!--EN CONSTRUCTION : BOUTON QUI POURRA PERMETTRE DE LIKER LES COMMENTAIRES LORSQUE L'API LE PERMETTRA-->
     <img
       src="../assets/like.png"
       class="likeButton"
