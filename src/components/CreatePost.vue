@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     async btnSend(){
-      window.location.reload();
+      // window.location.reload();
 
       const usertoken = localStorage.getItem("userToken")
       console.log("LS TOKEN",usertoken)
@@ -141,7 +141,7 @@ textarea#description{
   visibility: hidden;
 }
 .custom-file-input::before {
-  content: 'SELECTIONNER VOTRE PHOTO';
+  content: 'PHOTO';
   display: inline-block;
   background-color: #cad2c5;
   border: none;
@@ -154,7 +154,7 @@ textarea#description{
   color: #405e63;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  margin-left: auto;
+  
 }
 .custom-file-input:hover::before {
   border-color: black;

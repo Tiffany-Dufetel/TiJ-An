@@ -71,7 +71,7 @@ export default {
 
     async mounted(){
         //requete pour afficher les posts
-        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts"
+        const url = "https://dw-s3-nice-tijean.osc-fr1.scalingo.io/posts?limit=10"
 
         const response = await fetch (url)
         const dataPosts = await response.json()
