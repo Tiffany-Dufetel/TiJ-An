@@ -106,7 +106,6 @@ export default {
 
     //method qui permet l'envoi du commentaire et son stockage dans l'API
     async sendCom() {
-      window.location.reload();
 
       const usertoken = localStorage.getItem("userToken");
 
@@ -128,6 +127,8 @@ export default {
       console.log("datacomm", data);
 
       this.textareaCom = "";
+      window.location.reload();
+
     },
 
     //
