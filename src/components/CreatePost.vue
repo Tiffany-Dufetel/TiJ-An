@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     async btnSend(){
-      // window.location.reload();
+      window.location.reload();
 
       const usertoken = localStorage.getItem("userToken")
       console.log("LS TOKEN",usertoken)

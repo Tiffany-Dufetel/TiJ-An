@@ -106,7 +106,7 @@ textarea{
     height: 250px;
 }
 .search-bar{
-    position: absolute;
+    position: fixed;
     top: 30px;
     right: 5%;
     text-align: center;
