@@ -43,8 +43,13 @@ export default {
     };
   },
   methods: {
+<<<<<<< HEAD
     async btnSend() {
       // window.location.reload();
+=======
+    async btnSend(){
+      window.location.reload();
+>>>>>>> 91ad5a2f2200b501a07407a36ef6e73fa041257d
 
       const usertoken = localStorage.getItem("userToken");
       console.log("LS TOKEN", usertoken);
