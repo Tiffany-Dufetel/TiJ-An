@@ -1,24 +1,5 @@
-# tijean
+• Développement d'un réseau social pour les voyageurs leur permettant de partager leurs lieux visités.
 
-## Project setup
-```
-npm install
-```
+• HTML/CSS, VueJS avec VueCLI, utilisation dune API fournis
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+• Connexion/deconnexion, creation/affichage/suppression des posts, commentaires, édition du profil utilisateur
