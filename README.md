@@ -1,4 +1,4 @@
-• Développement d'un réseau social pour les voyageurs leur permettant de partager leurs lieux visités.
+• Développement en équipe d'un réseau social pour les voyageurs leur permettant de partager leurs lieux visités.
 
 • HTML/CSS, VueJS avec VueCLI, utilisation dune API fournis
 
