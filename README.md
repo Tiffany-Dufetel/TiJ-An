@@ -5,3 +5,5 @@
 • HTML/CSS, VueJS avec VueCLI, utilisation dune API fournis
 
 • Connexion/deconnexion, creation/affichage/suppression des posts, commentaires, édition du profil utilisateur
+
+![alt text](https://www.publicdomainpictures.net/pictures/320000/velka/background-image.png
